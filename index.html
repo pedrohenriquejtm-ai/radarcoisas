@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>RadarCoisas</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #22c55e;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
 
+<body>
+
+<h1>🧭 RadarCoisas</h1>
+<p>Descubra produtos ideais para você</p>
+
+<div id="quiz">
+  <h2>O que você quer?</h2>
+  <button onclick="responder('tech')">Tecnologia</button>
+  <button onclick="responder('casa')">Casa</button>
+</div>
+
+<div id="resultado" class="hidden">
+  <h2>Seu resultado 👇</h2>
+  <div id="produtos"></div>
+</div>
+
+<script>
+const produtos = [
+  {nome: "Mini projetor", categoria: "tech", link: "https://google.com"},
+  {nome: "Fone Bluetooth", categoria: "tech", link: "https://google.com"},
+  {nome: "Lâmpada LED", categoria: "casa", link: "https://google.com"},
+  {nome: "Suporte celular", categoria: "casa", link: "https://google.com"}
+];
+
+function responder(cat){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("resultado").classList.remove("hidden");
+
+  const lista = produtos.filter(p => p.categoria === cat);
+
+  let html = "";
+  lista.forEach(p => {
+    html += `<p>${p.nome} <br><a href="${p.link}" target="_blank">Ver produto</a></p>`;
+  });
+
+  document.getElementById("produtos").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
