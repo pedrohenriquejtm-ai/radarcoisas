@@ -2,43 +2,72 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RadarCoisas</title>
 
 <style>
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #0f172a;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+#pergunta {
+  font-size: 20px;
+  margin: 20px 0;
 }
 
 button {
   display: block;
-  margin: 10px auto;
-  padding: 12px;
-  width: 220px;
+  margin: 12px auto;
+  padding: 15px;
+  width: 90%;
+  max-width: 300px;
   border: none;
   background: #22c55e;
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 16px;
+  transition: 0.2s;
 }
 
 button:hover {
   background: #16a34a;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
+
+#resultado h2 {
+  font-size: 22px;
+}
+
+#produtos p {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 12px auto;
+  max-width: 320px;
+}
 
 a {
   color: #38bdf8;
-  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 8px;
 }
 
-a:hover {
-  text-decoration: underline;
+#loading {
+  font-size: 20px;
+  margin-top: 30px;
 }
 </style>
 </head>
@@ -50,6 +79,10 @@ a:hover {
 
 <div id="opcoes"></div>
 
+<div id="loading" class="hidden">
+  🔎 Analisando seu perfil...
+</div>
+
 <div id="resultado" class="hidden">
   <h2>Seu radar encontrou isso 👇</h2>
   <div id="produtos"></div>
@@ -60,22 +93,10 @@ let etapa = 0;
 let respostas = {};
 
 const perguntas = [
-  {
-    texto: "O que você quer encontrar?",
-    opcoes: ["Tecnologia", "Casa", "Presentes", "Aleatório"]
-  },
-  {
-    texto: "Qual faixa de preço?",
-    opcoes: ["Barato", "Médio", "Tanto faz"]
-  },
-  {
-    texto: "Para quem é?",
-    opcoes: ["Para mim", "Presente", "Tanto faz"]
-  },
-  {
-    texto: "Você prefere algo...",
-    opcoes: ["Útil", "Criativo", "Diferente"]
-  }
+  {texto: "O que você quer encontrar?", opcoes: ["Tecnologia", "Casa", "Presentes", "Aleatório"]},
+  {texto: "Qual faixa de preço?", opcoes: ["Barato", "Médio", "Tanto faz"]},
+  {texto: "Para quem é?", opcoes: ["Para mim", "Presente", "Tanto faz"]},
+  {texto: "Você prefere algo...", opcoes: ["Útil", "Criativo", "Diferente"]}
 ];
 
 const produtos = [
@@ -93,7 +114,7 @@ const produtos = [
 
 function mostrarPergunta(){
   if(etapa >= perguntas.length){
-    mostrarResultado();
+    mostrarLoading();
     return;
   }
 
@@ -116,9 +137,16 @@ function responder(resposta){
   mostrarPergunta();
 }
 
-function mostrarResultado(){
+function mostrarLoading(){
   document.getElementById("pergunta").classList.add("hidden");
   document.getElementById("opcoes").classList.add("hidden");
+  document.getElementById("loading").classList.remove("hidden");
+
+  setTimeout(mostrarResultado, 1500);
+}
+
+function mostrarResultado(){
+  document.getElementById("loading").classList.add("hidden");
   document.getElementById("resultado").classList.remove("hidden");
 
   let categoria = respostas.p0;
