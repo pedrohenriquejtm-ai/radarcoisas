@@ -17,15 +17,29 @@ button {
   display: block;
   margin: 10px auto;
   padding: 12px;
-  width: 200px;
+  width: 220px;
   border: none;
   background: #22c55e;
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #16a34a;
 }
 
 .hidden { display: none; }
+
+a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
@@ -51,7 +65,7 @@ const perguntas = [
     opcoes: ["Tecnologia", "Casa", "Presentes", "Aleatório"]
   },
   {
-    texto: "Faixa de preço?",
+    texto: "Qual faixa de preço?",
     opcoes: ["Barato", "Médio", "Tanto faz"]
   },
   {
@@ -59,20 +73,22 @@ const perguntas = [
     opcoes: ["Para mim", "Presente", "Tanto faz"]
   },
   {
-    texto: "Estilo?",
+    texto: "Você prefere algo...",
     opcoes: ["Útil", "Criativo", "Diferente"]
   }
 ];
 
 const produtos = [
-  {nome:"Mini projetor portátil", categoria:"Tecnologia", link:"#"},
-  {nome:"Fone Bluetooth", categoria:"Tecnologia", link:"#"},
-  {nome:"Lâmpada LED inteligente", categoria:"Casa", link:"#"},
-  {nome:"Organizador multiuso", categoria:"Casa", link:"#"},
-  {nome:"Caneca mágica", categoria:"Presentes", link:"#"},
-  {nome:"Caixa de som portátil", categoria:"Tecnologia", link:"#"},
-  {nome:"Suporte de celular", categoria:"Casa", link:"#"},
-  {nome:"Relógio digital LED", categoria:"Casa", link:"#"}
+  {nome:"Mini projetor portátil", categoria:"Tecnologia", link:"https://meli.la/1upXvCz"},
+  {nome:"Fone Bluetooth", categoria:"Tecnologia", link:"https://meli.la/1pLsuAP"},
+  {nome:"Caixa de som portátil", categoria:"Tecnologia", link:"https://meli.la/2ZwGSZq"},
+
+  {nome:"Lâmpada LED inteligente", categoria:"Casa", link:"https://meli.la/2Whi2mJ"},
+  {nome:"Organizador multiuso", categoria:"Casa", link:"https://meli.la/2m3EDWh"},
+  {nome:"Suporte de celular", categoria:"Casa", link:"https://meli.la/2YF8qDJ"},
+  {nome:"Relógio digital LED", categoria:"Casa", link:"https://meli.la/24rpcs3"},
+
+  {nome:"Caneca criativa", categoria:"Presentes", link:"https://meli.la/24rpcs3"}
 ];
 
 function mostrarPergunta(){
