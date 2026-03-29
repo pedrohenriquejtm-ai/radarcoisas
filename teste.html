@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>RadarCoisas</title>
 <style>
-body{font-family:Segoe UI,sans-serif;background:#f8fafc;color:#0f172a;margin:0}
+body{font-family:Inter, ui-sans-serif, system-ui, sans-serif;background:#f8fafc;color:#0f172a;margin:0}
 header{position:sticky;top:0;background:#fff;padding:14px 20px;display:flex;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.08);z-index:10}
 .hero,.quiz,.resultado,.loading{max-width:980px;margin:30px auto;padding:20px}
 .hero-box,.box{background:#fff;border-radius:22px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.08);text-align:center}
@@ -20,10 +20,15 @@ button{background:#22c55e;color:#fff;border:none;border-radius:14px;padding:14px
 .hidden{display:none}
 footer{max-width:900px;margin:40px auto;padding:20px;text-align:center;color:#64748b}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
-.modal-box{background:#fff;max-width:560px;width:100%;border-radius:18px;padding:24px;text-align:left}
-.lead-box{margin-top:24px;padding:16px;border:1px solid #e2e8f0;border-radius:16px}
+.modal-box{background:#fff;max-width:560px;width:100%;border-radius:22px;padding:28px;text-align:left;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.modal-box h2{margin-top:0}
+.termos-aceite{display:flex;align-items:center;gap:10px;margin:18px 0;font-size:15px}
+.lead-box{margin-top:24px;padding:18px;border:1px solid #e2e8f0;border-radius:18px;background:#f8fafc}
+.lead-notify{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;width:min(92%,700px);background:#ffffff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,.12);padding:16px;display:flex;gap:12px;align-items:center;z-index:30}
+.lead-notify.hidden{display:none}
+.lead-notify .grow{flex:1}
 input{width:100%;padding:12px;border-radius:12px;border:1px solid #cbd5e1;margin:8px 0}
-@media(max-width:700px){h1{font-size:30px}}
+@media(max-width:700px){h1{font-size:30px}.lead-notify{flex-direction:column;align-items:stretch}}
 </style>
 </head>
 <body>
@@ -58,9 +63,8 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #cbd5e1;margin
     <h2>🎯 Seus produtos ideais</h2>
     <div id="produtos" class="grid"></div>
     <div class="lead-box">
-      <strong>📩 Receba mais ofertas no Gmail</strong>
-      <input id="gmailLead" placeholder="seugmail@gmail.com">
-      <button onclick="capturarLead()">Quero receber</button>
+      <strong>🎯 Seleção feita com base no seu perfil</strong>
+      <p class="sub">Esses produtos foram priorizados pelas suas respostas para aumentar sua chance de encontrar algo que realmente combine com você.</p>
     </div>
   </div>
 </section>
@@ -70,11 +74,21 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #cbd5e1;margin
   <a href="#" onclick="abrirTermos()">Termos e Privacidade</a>
 </footer>
 
+<div class="lead-notify" id="leadBar">
+  <div class="grow">
+    <strong>📩 Receba ofertas exclusivas no Gmail</strong><br>
+    <small>Você pode fechar se não quiser agora.</small>
+  </div>
+  <input id="gmailLead" placeholder="seugmail@gmail.com" style="max-width:220px">
+  <button onclick="capturarLead()">Receber</button>
+  <button onclick="fecharLeadBar()" style="background:#e2e8f0;color:#0f172a">✕</button>
+</div>
+
 <div class="modal" id="termosModal">
  <div class="modal-box">
    <h2>📜 Termos e Privacidade</h2>
    <p>Usamos suas respostas para recomendar produtos mais relevantes e aumentar sua chance de encontrar algo útil para comprar. Alguns links geram comissão de afiliado sem custo extra.</p>
-   <label><input type="checkbox" id="aceite"> Li e aceito os termos</label><br><br>
+   <div class="termos-aceite"><input type="checkbox" id="aceite"><label for="aceite">Li e aceito os termos de uso, privacidade e links afiliados.</label></div>
    <button onclick="aceitarTermos()">Aceitar e continuar</button>
  </div>
 </div>
@@ -116,6 +130,7 @@ function mostrarResultado(){document.getElementById('loading').classList.add('hi
  if(lista.length<5) lista=produtos.filter(p=>p.cat===categoria).concat(produtos).slice(0,5);
  document.getElementById('produtos').innerHTML=lista.slice(0,5).map(p=>`<div class='card'><img src='${p.img}' alt='${p.nome}'><strong>${p.nome}</strong><p>⭐ 4.8 produto em alta</p><a href='${p.link}' target='_blank'>🔥 Ver oferta agora</a></div>`).join('');
 }
+function fecharLeadBar(){document.getElementById('leadBar').classList.add('hidden');}
 function capturarLead(){const g=document.getElementById('gmailLead').value; if(!g.includes('@gmail.com')){alert('Digite um Gmail válido');return;} localStorage.setItem('lead_gmail',g); alert('Perfeito! Vamos enviar mais ofertas no seu Gmail.');}
 </script>
 </body>
